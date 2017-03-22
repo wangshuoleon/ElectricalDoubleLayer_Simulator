@@ -36,7 +36,7 @@ classdef EDL
             obj.Debye=1/sqrt(2*obj.ElectrolyteConcentration*obj.e_constant^2*obj.NA/(obj.z*obj.z0*obj.BZ*obj.T));
             obj.xmesh=[0,linspace(obj.OHP,10*obj.Debye,100)];  
             obj.PotentialProfiles(1)=obj.Potential;
-            obj.PotentialProfiles(2:101)=obj.InnerPotential*exp(-1/obj.Debye*obj.xmesh(2:101));
+            obj.PotentialProfiles(2:101)=obj.InnerPotential*exp(-1/obj.Debye*(obj.xmesh(2:101)-obj.OHP));
             obj.xmesh_charge=obj.xmesh(2:101);
             obj.ChargeDensity=obj.Faraday*obj.ElectrolyteConcentration*(-obj.e_constant*obj.PotentialProfiles(2:101)/(obj.BZ*obj.T));
             obj.diff_C=1/(1/obj.C_inner+1/(2*(2*obj.z*obj.z0*obj.NA*obj.ElectrolyteConcentration*obj.BZ*obj.T)^.5*obj.e_constant/(2*obj.BZ*obj.T)*cosh(obj.e_constant*obj.InnerPotential/(2*obj.BZ*obj.T))));
